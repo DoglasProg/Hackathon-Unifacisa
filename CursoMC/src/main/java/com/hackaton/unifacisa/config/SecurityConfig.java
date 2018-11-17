@@ -1,5 +1,7 @@
 package com.hackaton.unifacisa.config;
 
+import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
+
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.hackaton.unifacisa.security.JWTAuthenticationFilter;
 import com.hackaton.unifacisa.security.JWTAuthorizationFilter;
@@ -36,7 +40,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	private Environment env;
 
 	private static final String[] PUBLIC_MATCHERS = {
-		"/h2-console/**"
+		"/h2-console/**",
+		"/produtos/**",
+		"/categorias/**",
+		"/clientes/**"
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_GET = {
@@ -67,10 +74,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder()); 
 	}
 	
-	@Bean 
-	CorsConfigurationSource corsConfigurationSource() { 
-		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(); 
-		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues()); 
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+		CorsRegistry registry = new CorsRegistry();
+		registry.addMapping("/**").allowedMethods("GET","PUT","PUT","DELETE");
+		
+		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
 		return source; 
 	}
 	
