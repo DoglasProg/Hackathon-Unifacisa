@@ -19,6 +19,7 @@ import com.hackaton.unifacisa.domain.PagamentoComBoleto;
 import com.hackaton.unifacisa.domain.PagamentoComCartao;
 import com.hackaton.unifacisa.domain.Pedido;
 import com.hackaton.unifacisa.domain.Produto;
+import com.hackaton.unifacisa.domain.Usuario;
 import com.hackaton.unifacisa.domain.enums.EstadoPagamento;
 import com.hackaton.unifacisa.domain.enums.Perfil;
 import com.hackaton.unifacisa.domain.enums.TipoCliente;
@@ -31,6 +32,7 @@ import com.hackaton.unifacisa.repositories.ItemPedidoRepository;
 import com.hackaton.unifacisa.repositories.PagamentoRepository;
 import com.hackaton.unifacisa.repositories.PedidoRepository;
 import com.hackaton.unifacisa.repositories.ProdutoRepository;
+import com.hackaton.unifacisa.repositories.UsuarioRepository;
 @Service
 public class DBService {
 	
@@ -54,9 +56,20 @@ public class DBService {
 	private ItemPedidoRepository itemPedidoRepository;
 	@Autowired
 	private BCryptPasswordEncoder pe;
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
 	
 	public void instantiateTestDatabase() throws ParseException {
+		
+		Usuario user1 = new Usuario(null, "Abella","999999999", "Abella@hotmail.com", "123", "40", "1.68", "70.5");
+		Usuario user2 = new Usuario(null, "Maria","999998888", "Maria@hotmail.com", "123", "40", "1.68", "70.5");
+		
+		usuarioRepository.saveAll(Arrays.asList(user1,user2));
+		
+		
+		
+		
 		Categoria cat1 = new Categoria(null, "Informatica");
 		Categoria cat2 = new Categoria(null, "Escritorio");
 		Categoria cat3 = new Categoria(null, "Cama mesa e banho");

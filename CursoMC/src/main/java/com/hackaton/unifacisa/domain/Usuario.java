@@ -30,15 +30,15 @@ public class Usuario implements Serializable {
 	@JsonIgnore
 	private String senha;
 
-	private int idade;
-	private float altura;
-	private float peso;
+	private String idade;
+	private String altura;
+	private String peso;
 
 	public Usuario() {
 	}
 
-	public Usuario(Integer id, String nome, String telefone, String email, String senha, int idade, float altura,
-			float peso) {
+	public Usuario(Integer id, String nome, String telefone, String email, String senha, String idade, String altura,
+			String peso) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -50,7 +50,7 @@ public class Usuario implements Serializable {
 		this.peso = peso;
 	}
 
-	public Usuario(Integer id, String nome, String email, String senha, int idade, float altura, float peso) {
+	public Usuario(Integer id, String nome, String email, String senha, String idade, String altura, String peso) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -101,27 +101,27 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 	}
 
-	public int getIdade() {
+	public String getIdade() {
 		return idade;
 	}
 
-	public void setIdade(int idade) {
+	public void setIdade(String idade) {
 		this.idade = idade;
 	}
 
-	public float getAltura() {
+	public String getAltura() {
 		return altura;
 	}
 
-	public void setAltura(float altura) {
+	public void setAltura(String altura) {
 		this.altura = altura;
 	}
 
-	public float getPeso() {
+	public String getPeso() {
 		return peso;
 	}
 
-	public void setPeso(float peso) {
+	public void setPeso(String peso) {
 		this.peso = peso;
 	}
 
