@@ -1,7 +1,9 @@
 package com.hackaton.unifacisa.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -13,6 +15,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hackaton.unifacisa.domain.enums.Perfil;
@@ -40,17 +43,21 @@ public class Usuario implements Serializable {
 	@ElementCollection(fetch=FetchType.EAGER)
 	@CollectionTable(name="PERFIS")
 	private Set<Integer> perfis = new HashSet<>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="usuario")
+	private List<Refeicao> refeicoes = new ArrayList<>();
 
 	private int idade;
-	private float altura;
-	private float peso;
+	private double altura;
+	private double peso;
 
 	public Usuario() {
 		addPerfis(Perfil.CLIENTE);
 	}
 
-	public Usuario(Integer id, String nome, String telefone, String email, String senha, int idade, float altura,
-			float peso) {
+	public Usuario(Integer id, String nome, String telefone, String email, String senha, int idade, double altura,
+			double peso) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -70,6 +77,15 @@ public class Usuario implements Serializable {
 
 	public void addPerfis(Perfil perfil) {
 		this.perfis.add(perfil.getCod());
+	}
+	
+	
+	public List<Refeicao> getRefeicoes() {
+		return refeicoes;
+	}
+
+	public void setRefeicoes(List<Refeicao> refeicoes) {
+		this.refeicoes = refeicoes;
 	}
 
 	public Integer getId() {
@@ -120,19 +136,19 @@ public class Usuario implements Serializable {
 		this.idade = idade;
 	}
 
-	public float getAltura() {
+	public double getAltura() {
 		return altura;
 	}
 
-	public void setAltura(float altura) {
+	public void setAltura(double altura) {
 		this.altura = altura;
 	}
 
-	public float getPeso() {
+	public double getPeso() {
 		return peso;
 	}
 
-	public void setPeso(float peso) {
+	public void setPeso(double peso) {
 		this.peso = peso;
 	}
 

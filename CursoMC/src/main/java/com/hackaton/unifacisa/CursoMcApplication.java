@@ -1,6 +1,8 @@
 package com.hackaton.unifacisa;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -9,8 +11,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.hackaton.unifacisa.domain.Alimento;
+import com.hackaton.unifacisa.domain.Refeicao;
 import com.hackaton.unifacisa.domain.Usuario;
+import com.hackaton.unifacisa.domain.enums.TipoRefeicao;
 import com.hackaton.unifacisa.repositories.AlimentoRepository;
+import com.hackaton.unifacisa.repositories.RefeicaoRepository;
 import com.hackaton.unifacisa.repositories.UsuarioRepository;
 
 @SpringBootApplication
@@ -25,6 +30,9 @@ public class CursoMcApplication implements CommandLineRunner{
 	@Autowired
 	private AlimentoRepository alimentoRepository;
 	
+	@Autowired
+	private RefeicaoRepository refeicaoRepository;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(CursoMcApplication.class, args);
 	}
@@ -32,15 +40,34 @@ public class CursoMcApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		
+		Refeicao ref = new Refeicao(1,sdf.parse("30/09/2017"), 10, TipoRefeicao.ALMOCO);
+		Refeicao ref1 = new Refeicao(2,sdf.parse("30/09/2017"), 20, TipoRefeicao.JANTAR);
+		
+
+		Usuario user = new Usuario(null, "Abella","987654321", "abella@gmail.com",pe.encode("123"), 40, 100, 90);
+		Usuario user1 = new Usuario(null, "Maria","987654000", "Maria@gmail.com", pe.encode("123"), 25, 115, 50);
+		
+		ref.setUsuario(user);
+		ref1.setUsuario(user1);
+		
+		user.getRefeicoes().add(ref);
+		user1.getRefeicoes().add(ref1);
+		
+		usuarioRepository.saveAll(Arrays.asList(user,user1));
+		
+		refeicaoRepository.saveAll(Arrays.asList(ref,ref1));
+		
 		Alimento ali1 = new Alimento(null, "batata", 5, 7, 2, 9, 15, 15);
 		Alimento ali2 = new Alimento(null, "mamão", 1, 8, 0, 5, 1, 10);
 		
 		alimentoRepository.saveAll(Arrays.asList(ali1,ali2));
 		
-		Usuario user = new Usuario(null, "Abella","987654321", "abella@gmail.com",pe.encode("123"), 40, 100, 90);
-		Usuario user1 = new Usuario(null, "Maria","987654000", "Maria@gmail.com", pe.encode("123"), 25, 115, 50);
 		
-		usuarioRepository.saveAll(Arrays.asList(user,user1));
+		
+		
+		
 		
 	}
 

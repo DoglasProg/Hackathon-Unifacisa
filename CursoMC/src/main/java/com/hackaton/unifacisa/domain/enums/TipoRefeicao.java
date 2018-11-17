@@ -1,14 +1,16 @@
 package com.hackaton.unifacisa.domain.enums;
 
-public enum TipoCliente {
+public enum TipoRefeicao {
 	
-	PESSOAFISICA(1, "Pessoa Física"),
-	PESSOAJURIDICA(2, "Pessoa Júridica");
-	
+	DESJEJUN(1, "Desjejum"),
+	LANCHE(2, "Lanche"),
+	ALMOCO(3, "Almiço"),
+	JANTAR(4, "Jantar");
+
 	private int cod;
 	private String descricao;
-	
-	private TipoCliente(int cod, String descricao) {
+
+	private TipoRefeicao(int cod, String descricao) {
 		this.cod = cod;
 		this.descricao = descricao;
 	}
@@ -20,20 +22,20 @@ public enum TipoCliente {
 	public String getDescricao() {
 		return descricao;
 	}
-	
-	public static TipoCliente toEnum(Integer cod){
-		
-		if(cod == null) {
+
+	public static TipoRefeicao toEnum(Integer cod) {
+
+		if (cod == null) {
 			return null;
 		}
-		
-		for (TipoCliente x : TipoCliente.values()) {
-			if(cod.equals(x.getCod())) {
+
+		for (TipoRefeicao x : TipoRefeicao.values()) {
+			if (cod.equals(x.getCod())) {
 				return x;
 			}
 		}
-		
+
 		throw new IllegalArgumentException("Id invãlido: " + cod);
 	}
-	
+
 }
