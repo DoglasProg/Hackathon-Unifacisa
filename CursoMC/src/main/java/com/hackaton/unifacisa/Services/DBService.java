@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.hackaton.unifacisa.domain.Alimento;
 import com.hackaton.unifacisa.domain.Categoria;
 import com.hackaton.unifacisa.domain.Cidade;
 import com.hackaton.unifacisa.domain.Cliente;
@@ -19,9 +20,11 @@ import com.hackaton.unifacisa.domain.PagamentoComBoleto;
 import com.hackaton.unifacisa.domain.PagamentoComCartao;
 import com.hackaton.unifacisa.domain.Pedido;
 import com.hackaton.unifacisa.domain.Produto;
+import com.hackaton.unifacisa.domain.Usuario;
 import com.hackaton.unifacisa.domain.enums.EstadoPagamento;
 import com.hackaton.unifacisa.domain.enums.Perfil;
 import com.hackaton.unifacisa.domain.enums.TipoCliente;
+import com.hackaton.unifacisa.repositories.AlimentoRepository;
 import com.hackaton.unifacisa.repositories.CategoriaRepository;
 import com.hackaton.unifacisa.repositories.CidadeRepository;
 import com.hackaton.unifacisa.repositories.ClienteRepository;
@@ -31,6 +34,7 @@ import com.hackaton.unifacisa.repositories.ItemPedidoRepository;
 import com.hackaton.unifacisa.repositories.PagamentoRepository;
 import com.hackaton.unifacisa.repositories.PedidoRepository;
 import com.hackaton.unifacisa.repositories.ProdutoRepository;
+import com.hackaton.unifacisa.repositories.UsuarioRepository;
 @Service
 public class DBService {
 	
@@ -54,9 +58,22 @@ public class DBService {
 	private ItemPedidoRepository itemPedidoRepository;
 	@Autowired
 	private BCryptPasswordEncoder pe;
+	@Autowired
+	private AlimentoRepository alimentoRepository;
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
 	
 	public void instantiateTestDatabase() throws ParseException {
+		
+		Alimento ali1 = new Alimento(null, "batata", 5, 7, 2, 9, 15, 15);
+		Alimento ali2 = new Alimento(null, "mamão", 1, 8, 0, 5, 1, 10);
+		alimentoRepository.saveAll(Arrays.asList(ali1,ali2));
+		
+		Usuario user = new Usuario(null, "Abella","987654321", "abella@gmail.com",pe.encode("123"), 40, 100, 90);
+		Usuario user1 = new Usuario(null, "Maria","987654000", "Maria@gmail.com", pe.encode("123"), 25, 115, 50);
+		usuarioRepository.saveAll(Arrays.asList(user,user1));
+		
 		Categoria cat1 = new Categoria(null, "Informatica");
 		Categoria cat2 = new Categoria(null, "Escritorio");
 		Categoria cat3 = new Categoria(null, "Cama mesa e banho");

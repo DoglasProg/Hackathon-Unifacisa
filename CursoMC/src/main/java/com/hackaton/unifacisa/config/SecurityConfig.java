@@ -43,13 +43,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		"/h2-console/**",
 		"/produtos/**",
 		"/categorias/**",
-		"/clientes/**"
+		"/clientes/**",
+		"/alimentos/**",
+		"/usuarios/**"
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_GET = {
 			"/produtos/**",
 			"/categorias/**",
-			"/clientes/**"
+			"/clientes/**",
+			"/alimentos/**",
+			"/usuarios/**"
 		};
 	
 	@Override
@@ -76,9 +80,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
-		CorsRegistry registry = new CorsRegistry();
-		registry.addMapping("/**").allowedMethods("GET","PUT","PUT","DELETE");
-		
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
 		return source; 

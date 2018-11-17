@@ -9,27 +9,28 @@ import org.springframework.stereotype.Service;
 import com.hackaton.unifacisa.Services.exception.ObjectNotFoundException;
 import com.hackaton.unifacisa.domain.Alimento;
 import com.hackaton.unifacisa.domain.Categoria;
-import com.hackaton.unifacisa.repositories.AlimentoRepository;
+import com.hackaton.unifacisa.domain.Usuario;
+import com.hackaton.unifacisa.repositories.UsuarioRepository;
 
 @Service
-public class AlimentoService {
-	
+public class UsuarioService {
+
 	@Autowired
-	private AlimentoRepository alimentoRepository;
+	private UsuarioRepository usuarioRepository;
 	
-	public Alimento find(Integer id) {
-		Optional<Alimento> obj = alimentoRepository.findById(id);
+	public Usuario find(Integer id) {
+		Optional<Usuario> obj = usuarioRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id:" + id + ", Tipo:" + Categoria.class.getName()));
 	}
 	
-	public List<Alimento> findAll() {
-		return alimentoRepository.findAll();
+	public List<Usuario> findAll() {
+		return usuarioRepository.findAll();
 	}
 	
-	public Alimento insert(Alimento obj) {
+	public Usuario insert(Usuario obj) {
 		obj.setId(null);
-		obj = alimentoRepository.save(obj);
+		obj = usuarioRepository.save(obj);
 		return obj;
 	}
 }

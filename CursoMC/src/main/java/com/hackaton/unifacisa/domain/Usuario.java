@@ -1,14 +1,20 @@
 package com.hackaton.unifacisa.domain;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hackaton.unifacisa.domain.enums.Perfil;
 
 @Entity
 public class Usuario implements Serializable {
@@ -29,12 +35,17 @@ public class Usuario implements Serializable {
 
 	@JsonIgnore
 	private String senha;
+	
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name="PERFIS")
+	private Set<Integer> perfis = new HashSet<>();
 
 	private int idade;
 	private float altura;
 	private float peso;
 
 	public Usuario() {
+		addPerfis(Perfil.CLIENTE);
 	}
 
 	public Usuario(Integer id, String nome, String telefone, String email, String senha, int idade, float altura,
@@ -50,15 +61,13 @@ public class Usuario implements Serializable {
 		this.peso = peso;
 	}
 
-	public Usuario(Integer id, String nome, String email, String senha, int idade, float altura, float peso) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.email = email;
-		this.senha = senha;
-		this.idade = idade;
-		this.altura = altura;
-		this.peso = peso;
+	
+	public Set<Integer> getPerfis() {
+		return perfis;
+	}
+
+	public void addPerfis(Perfil perfil) {
+		this.perfis.add(perfil.getCod());
 	}
 
 	public Integer getId() {

@@ -14,33 +14,32 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.hackaton.unifacisa.Services.AlimentoService;
+import com.hackaton.unifacisa.Services.UsuarioService;
 import com.hackaton.unifacisa.domain.Alimento;
-import com.hackaton.unifacisa.domain.Cliente;
-import com.hackaton.unifacisa.dto.ClienteNewDTO;
+import com.hackaton.unifacisa.domain.Usuario;
 
-@RequestMapping(value="/alimentos")
+@RequestMapping(value="/usuarios")
 @RestController
-public class AlimentoResource {
+public class UsuarioResource {
 	
 	@Autowired
-	private AlimentoService alimentoService;
+	private UsuarioService UsuarioService;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<Alimento> find(@PathVariable Integer id) {
-		Alimento obj = alimentoService.find(id);
+	public ResponseEntity<Usuario> find(@PathVariable Integer id) {
+		Usuario obj = UsuarioService.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<Alimento>> findAll() {
-		List<Alimento> list = alimentoService.findAll();
+	public ResponseEntity<List<Usuario>> findAll() {
+		List<Usuario> list = UsuarioService.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody Alimento obj){
-		obj = alimentoService.insert(obj);
+	public ResponseEntity<Void> insert(@Valid @RequestBody Usuario obj){
+		obj = UsuarioService.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
