@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.hackaton.unifacisa.Services.exception.ObjectNotFoundException;
 import com.hackaton.unifacisa.domain.Alimento;
-import com.hackaton.unifacisa.domain.Categoria;
 import com.hackaton.unifacisa.repositories.AlimentoRepository;
 
 @Service
@@ -20,7 +19,7 @@ public class AlimentoService {
 	public Alimento find(Integer id) {
 		Optional<Alimento> obj = alimentoRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id:" + id + ", Tipo:" + Categoria.class.getName()));
+				"Objeto não encontrado! Id:" + id + ", Tipo:" + Alimento.class.getName()));
 	}
 	
 	public List<Alimento> findAll() {

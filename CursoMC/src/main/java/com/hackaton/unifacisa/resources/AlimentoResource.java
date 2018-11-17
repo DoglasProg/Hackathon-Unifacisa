@@ -16,8 +16,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.hackaton.unifacisa.Services.AlimentoService;
 import com.hackaton.unifacisa.domain.Alimento;
-import com.hackaton.unifacisa.domain.Cliente;
-import com.hackaton.unifacisa.dto.ClienteNewDTO;
 
 @RequestMapping(value="/alimentos")
 @RestController
