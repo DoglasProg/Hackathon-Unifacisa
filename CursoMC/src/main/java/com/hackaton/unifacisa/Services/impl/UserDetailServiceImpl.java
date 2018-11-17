@@ -6,19 +6,19 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.hackaton.unifacisa.domain.Cliente;
-import com.hackaton.unifacisa.repositories.ClienteRepository;
+import com.hackaton.unifacisa.domain.Usuario;
+import com.hackaton.unifacisa.repositories.UsuarioRepository;
 import com.hackaton.unifacisa.security.UserSecurity;
 
 @Service
 public class UserDetailServiceImpl implements UserDetailsService{
 
 	@Autowired
-	private ClienteRepository repo;
+	private UsuarioRepository repo;
 	
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		Cliente cli= repo.findByEmail(email);
+		Usuario cli= repo.findByEmail(email);
 		if(cli == null) {
 			throw new UsernameNotFoundException(email);
 		}

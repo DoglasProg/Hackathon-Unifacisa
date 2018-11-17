@@ -3,6 +3,7 @@ package com.hackaton.unifacisa.domain;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -59,11 +60,12 @@ public class Usuario implements Serializable {
 		this.idade = idade;
 		this.altura = altura;
 		this.peso = peso;
+		addPerfis(Perfil.CLIENTE);
 	}
 
 	
-	public Set<Integer> getPerfis() {
-		return perfis;
+	public Set<Perfil> getPerfis() {
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
 	}
 
 	public void addPerfis(Perfil perfil) {
