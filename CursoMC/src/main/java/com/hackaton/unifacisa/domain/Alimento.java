@@ -1,33 +1,36 @@
 package com.hackaton.unifacisa.domain;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
-@Entity
+
 @NotNull
-public class Alimento {
+@Entity
+public class Alimento implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	private String description;
 	private int quantidade;
-	private float medida;
-	private float calories;
-	private float carbohydrate;
-	private float protein;
-	private float lipid;
+	private double medida;
+	private double calories;
+	private double carbohydrate;
+	private double protein;
+	private double lipid;
 	
 	public Alimento() {}
 
-	public Alimento(Integer id, String description, int quantidade, float medida, float calories, float carbohydrate,
-					float protein, float lipid) {
+	public Alimento(Integer id, String description, int quantidade, double medida, double calories, double carbohydrate,
+					double protein, double lipid) {
 		super();
 		this.id = id;
 		this.description = description;
@@ -63,43 +66,43 @@ public class Alimento {
 		this.quantidade = quantidade;
 	}
 
-	public float getMedida() {
+	public double getMedida() {
 		return medida;
 	}
 
-	public void setMedida(float medida) {
+	public void setMedida(double medida) {
 		this.medida = medida;
 	}
 
-	public float getCalories() {
+	public double getCalories() {
 		return calories;
 	}
 
-	public void setCalories(float calories) {
+	public void setCalories(double calories) {
 		this.calories = calories;
 	}
 
-	public float getCarbohydrate() {
+	public double getCarbohydrate() {
 		return carbohydrate;
 	}
 
-	public void setCarbohydrate(float carbohydrate) {
+	public void setCarbohydrate(double carbohydrate) {
 		this.carbohydrate = carbohydrate;
 	}
 
-	public float getProtein() {
+	public double getProtein() {
 		return protein;
 	}
 
-	public void setProtein(float protein) {
+	public void setProtein(double protein) {
 		this.protein = protein;
 	}
 
-	public float getLipid() {
+	public double getLipid() {
 		return lipid;
 	}
 
-	public void setLipid(float lipid) {
+	public void setLipid(double lipid) {
 		this.lipid = lipid;
 	}
 
@@ -127,6 +130,5 @@ public class Alimento {
 			return false;
 		return true;
 	}
-	
 
 }

@@ -1,14 +1,17 @@
 package com.hackaton.unifacisa.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.hackaton.unifacisa.domain.enums.TipoRefeicao;
@@ -28,16 +31,12 @@ public class Refeicao implements Serializable{
 	private int quantidade;
 	private Integer tipoRefeicao;
 	
-	
-	@ManyToOne
-	@JoinColumn(name="usuario_id")
-	private Usuario usuario;
+	@OneToMany
+	@JoinColumn(name="alimento_id")
+	private List<Alimento> alimentos = new ArrayList<>();
 	
 	public Refeicao() {}
 	
-	public Refeicao(Date dataRefeicao) {this.dataRefeicao = dataRefeicao;}
-
-
 	public Refeicao(Integer id, Date dataRefeicao, int quantidade, TipoRefeicao tipoRefeicao) {
 		super();
 		this.id = id;
@@ -51,16 +50,16 @@ public class Refeicao implements Serializable{
 		return id;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	public List<Alimento> getAlimentos() {
+		return alimentos;
+	}
+
+	public void setAlimentos(Alimento alimentos) {
+		this.alimentos.add(alimentos);
 	}
 
 	public int getQuantidade() {

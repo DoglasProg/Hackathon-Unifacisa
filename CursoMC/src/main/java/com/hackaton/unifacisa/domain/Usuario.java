@@ -15,7 +15,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hackaton.unifacisa.domain.enums.Perfil;
@@ -28,6 +30,11 @@ public class Usuario implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@JsonIgnore
+	@OneToMany
+	@JoinColumn(name="refeicao_id")
+	private List<Refeicao> refeicoes = new ArrayList<>();
 
 	private String nome;
 
@@ -37,17 +44,13 @@ public class Usuario implements Serializable {
 	@Column(unique = true)
 	private String email;
 
-	@JsonIgnore
 	private String senha;
 	
+	@JsonIgnore
 	@ElementCollection(fetch=FetchType.EAGER)
 	@CollectionTable(name="PERFIS")
 	private Set<Integer> perfis = new HashSet<>();
 	
-	@JsonIgnore
-	@OneToMany(mappedBy="usuario")
-	private List<Refeicao> refeicoes = new ArrayList<>();
-
 	private int idade;
 	private double altura;
 	private double peso;
@@ -79,21 +82,21 @@ public class Usuario implements Serializable {
 		this.perfis.add(perfil.getCod());
 	}
 	
-	
-	public List<Refeicao> getRefeicoes() {
-		return refeicoes;
-	}
-
-	public void setRefeicoes(List<Refeicao> refeicoes) {
-		this.refeicoes = refeicoes;
-	}
-
 	public Integer getId() {
 		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	
+	public List<Refeicao> getRefeicoes() {
+		return refeicoes;
+	}
+
+	public void setRefeicoes(Refeicao refeicoes) {
+		this.refeicoes.add(refeicoes);
 	}
 
 	public String getNome() {
@@ -119,7 +122,7 @@ public class Usuario implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	
 	public String getSenha() {
 		return senha;
 	}

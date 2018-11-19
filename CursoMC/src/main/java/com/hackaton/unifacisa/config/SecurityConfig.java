@@ -1,7 +1,5 @@
 package com.hackaton.unifacisa.config;
 
-import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
-
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
 import com.hackaton.unifacisa.security.JWTAuthenticationFilter;
 import com.hackaton.unifacisa.security.JWTAuthorizationFilter;
@@ -41,11 +38,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	private static final String[] PUBLIC_MATCHERS = {
 		"/h2-console/**",
+		"/alimentos/**",
+		"/usuarios/**",
+		"/refeicoes/**",
+		"/alimentos/**"
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_GET = {
 			"/alimentos/**",
-			"/usuarios/**"
+			"/usuarios/**",
+			"/refeicoes/**"
 		};
 	
 	@Override
@@ -58,6 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.cors().and().csrf().disable();
 		http.authorizeRequests()
 			.antMatchers(HttpMethod.POST, "/usuarios").permitAll()
+			.antMatchers(HttpMethod.POST, "/refeicoes").permitAll()
 			.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
 			.antMatchers(PUBLIC_MATCHERS).permitAll()
 			.anyRequest().authenticated();
@@ -73,8 +76,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuracion = new CorsConfiguration().applyPermitDefaultValues();
+		configuracion.setAllowedMethods(Arrays.asList("POST","GET","PUT","DELETE","OPTIONS"));
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+		source.registerCorsConfiguration("/**", configuracion);
 		return source; 
 	}
 	

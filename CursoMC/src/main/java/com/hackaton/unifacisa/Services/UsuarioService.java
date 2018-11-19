@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.hackaton.unifacisa.Services.exception.ObjectNotFoundException;
@@ -30,5 +31,21 @@ public class UsuarioService {
 		obj.setId(null);
 		obj = usuarioRepository.save(obj);
 		return obj;
+	}
+	
+	public Usuario update(Usuario obj) {
+		find(obj.getId());
+		return usuarioRepository.save(obj);
+	}
+	
+	public void delete(Integer id) {
+		find(id);
+		try {
+			
+			usuarioRepository.deleteById(id); 
+		
+		}catch (DataIntegrityViolationException e){
+			throw new DataIntegrityViolationException("Não é possivel excluir");
+		}
 	}
 }

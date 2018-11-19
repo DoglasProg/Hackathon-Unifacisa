@@ -3,7 +3,8 @@ package com.hackaton.unifacisa.domain.enums;
 public enum TipoRefeicao {
 	
 	DESJEJUN(1, "Desjejum"),
-	LANCHE(2, "Lanche"),
+	LANCHEMANHA(2, "Lanche manhã"),
+	LANCHETARDE(2, "Lanche Tarde"),
 	ALMOCO(3, "Almiço"),
 	JANTAR(4, "Jantar");
 
