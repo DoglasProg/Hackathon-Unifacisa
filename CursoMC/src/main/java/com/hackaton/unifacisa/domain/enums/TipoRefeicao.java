@@ -5,7 +5,7 @@ public enum TipoRefeicao {
 	DESJEJUN(1, "Desjejum"),
 	LANCHEMANHA(2, "Lanche manhã"),
 	LANCHETARDE(2, "Lanche Tarde"),
-	ALMOCO(3, "Almiço"),
+	ALMOCO(3, "Almoço"),
 	JANTAR(4, "Jantar");
 
 	private int cod;
