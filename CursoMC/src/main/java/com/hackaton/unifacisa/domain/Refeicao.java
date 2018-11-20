@@ -77,12 +77,12 @@ public class Refeicao implements Serializable{
 		this.tipoRefeicao = tipoRefeicao.getCod();
 	}
 
-	public Date getDataRefeicao() {
+	public Date getData() {
 		return data;
 	}
 
-	public void setDataRefeicao(Date dataRefeicao) {
-		this.data = dataRefeicao;
+	public void setData(Date dat) {
+		this.data = data;
 	}
 
 	@Override
