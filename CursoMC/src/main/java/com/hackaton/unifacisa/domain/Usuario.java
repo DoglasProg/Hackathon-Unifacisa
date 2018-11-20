@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -17,7 +18,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hackaton.unifacisa.domain.enums.Perfil;
@@ -32,7 +32,7 @@ public class Usuario implements Serializable {
 	private Integer id;
 	
 	@JsonIgnore
-	@OneToMany
+	@OneToMany(cascade=CascadeType.REMOVE)
 	@JoinColumn(name="refeicao_id")
 	private List<Refeicao> refeicoes = new ArrayList<>();
 

@@ -50,4 +50,11 @@ public class UsuarioResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
+	public ResponseEntity<Void> update(@Valid @RequestBody Usuario obj, @PathVariable Integer id){
+		obj.setId(id);
+		obj = UsuarioService.update(obj);
+		return ResponseEntity.noContent().build();
+	}
+	
 }

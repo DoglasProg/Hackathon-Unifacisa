@@ -5,13 +5,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.hackaton.unifacisa.domain.enums.TipoRefeicao;
@@ -26,13 +25,13 @@ public class Refeicao implements Serializable{
 	private Integer id;
 	
 	@JsonFormat(pattern="dd/MM/yyyy")
-	private Date dataRefeicao;
+	private Date data;
 	
 	private int quantidade;
 	private Integer tipoRefeicao;
 	
-	@OneToMany
-	@JoinColumn(name="alimento_id")
+	@ManyToMany
+	@JoinColumn(name="refeicao_id")
 	private List<Alimento> alimentos = new ArrayList<>();
 	
 	public Refeicao() {}
@@ -40,7 +39,7 @@ public class Refeicao implements Serializable{
 	public Refeicao(Integer id, Date dataRefeicao, int quantidade, TipoRefeicao tipoRefeicao) {
 		super();
 		this.id = id;
-		this.dataRefeicao = dataRefeicao;
+		this.data = dataRefeicao;
 		this.quantidade = quantidade;
 		this.tipoRefeicao = tipoRefeicao.getCod();
 	}
@@ -79,11 +78,11 @@ public class Refeicao implements Serializable{
 	}
 
 	public Date getDataRefeicao() {
-		return dataRefeicao;
+		return data;
 	}
 
 	public void setDataRefeicao(Date dataRefeicao) {
-		this.dataRefeicao = dataRefeicao;
+		this.data = dataRefeicao;
 	}
 
 	@Override

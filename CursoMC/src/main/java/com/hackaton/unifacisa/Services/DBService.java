@@ -61,9 +61,10 @@ public class DBService {
 		Usuario user1 = new Usuario(null, "Maria", "987654000", "Maria@gmail.com", pe.encode("123"), 25, 115, 50);
 
 		alimentoRepository.saveAll(Arrays.asList(ali1, ali2,ali3,ali4,ali5,ali6,ali7,ali8));
-
+		
+		ref2.getAlimentos().add(ali1);
 		ref1.getAlimentos().add(ali1);
-		ref2.getAlimentos().add(ali2);
+		
 
 		refeicaoRepository.saveAll(Arrays.asList(ref1, ref2));
 
