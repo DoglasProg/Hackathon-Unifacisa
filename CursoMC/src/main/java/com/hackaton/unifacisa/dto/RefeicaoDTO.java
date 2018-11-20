@@ -3,8 +3,6 @@ package com.hackaton.unifacisa.dto;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.validation.constraints.NotEmpty;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.hackaton.unifacisa.domain.Refeicao;
 
@@ -17,11 +15,11 @@ public class RefeicaoDTO implements Serializable{
 	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date data;
 	
-	@NotEmpty(message="Preenchimento Obrigatório")
 	private int quantidade;
 	
-	@NotEmpty(message="Preenchimento Obrigatório")
-	private Integer tipoRefeicao;
+	private int tipoRefeicao;
+	
+	private int idAlimento;
 	
 	public RefeicaoDTO() {}
 	
@@ -63,5 +61,14 @@ public class RefeicaoDTO implements Serializable{
 	public void setTipoRefeicao(Integer tipoRefeicao) {
 		this.tipoRefeicao = tipoRefeicao;
 	}
+
+	public int getIdAlimento() {
+		return idAlimento;
+	}
+
+	public void setIdAlimento(int idAlimento) {
+		this.idAlimento = idAlimento;
+	}
+
 	
 }

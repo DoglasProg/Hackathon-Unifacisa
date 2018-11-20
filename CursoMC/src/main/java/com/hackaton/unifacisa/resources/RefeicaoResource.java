@@ -3,6 +3,7 @@ package com.hackaton.unifacisa.resources;
 import java.net.URI;
 import java.util.List;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.hackaton.unifacisa.Services.RefeicaoService;
 import com.hackaton.unifacisa.domain.Refeicao;
+import com.hackaton.unifacisa.dto.RefeicaoDTO;
 
 @RequestMapping(value="/refeicoes")
 @RestController
@@ -36,24 +38,29 @@ public class RefeicaoResource {
 		return ResponseEntity.ok().body(list);
 	}
 	
+	@Transactional
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody Refeicao obj){
-		refeicaoService.insert(obj);
+	public ResponseEntity<Void> insert(@Valid @RequestBody RefeicaoDTO refeicaoDTO){
+		Refeicao refeicao = refeicaoService.fromDTo(refeicaoDTO);
+		refeicaoService.insert(refeicao);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(obj.getId()).toUri();
+				.buildAndExpand(refeicao.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@Transactional
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		refeicaoService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
+	@Transactional
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody Refeicao obj, @PathVariable Integer id){
-		obj.setId(id);
-		obj = refeicaoService.update(obj);
+	public ResponseEntity<Void> update(@Valid @RequestBody RefeicaoDTO refeicaoDTO, @PathVariable Integer id){
+		Refeicao refeicao = refeicaoService.fromDTo(refeicaoDTO);
+		refeicao.setId(id);
+		refeicaoService.update(refeicao);
 		return ResponseEntity.noContent().build();
 	}
 	

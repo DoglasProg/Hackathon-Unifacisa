@@ -4,13 +4,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.hackaton.unifacisa.Services.exception.ObjectNotFoundException;
+import com.hackaton.unifacisa.domain.Alimento;
 import com.hackaton.unifacisa.domain.Refeicao;
 import com.hackaton.unifacisa.domain.Usuario;
+import com.hackaton.unifacisa.domain.enums.TipoRefeicao;
+import com.hackaton.unifacisa.dto.RefeicaoDTO;
 import com.hackaton.unifacisa.repositories.RefeicaoRepository;
 
 @Service
@@ -18,6 +23,9 @@ public class RefeicaoService {
 	
 	@Autowired
 	private RefeicaoRepository refeicaoRepository;
+	
+	@Autowired
+	private AlimentoService AlimentoService;
 	
 	public Refeicao find(Integer id) {
 		Optional<Refeicao> obj = refeicaoRepository.findById(id);
@@ -27,6 +35,10 @@ public class RefeicaoService {
 	
 	public List<Refeicao> findAll() {
 		return refeicaoRepository.findAll();
+	}
+	
+	public List<Refeicao> findByData(Date data){
+		return refeicaoRepository.findByData(data);
 	}
 	
 	public Refeicao insert(Refeicao obj) {
@@ -54,6 +66,14 @@ public class RefeicaoService {
 		}catch (DataIntegrityViolationException e){
 			throw new DataIntegrityViolationException("Não é possivel excluir");
 		}
+	}
+
+	public Refeicao fromDTo(RefeicaoDTO refeicaoDTO) {
+		Alimento alimento = AlimentoService.find(refeicaoDTO.getIdAlimento());
+		Refeicao refeicao = new Refeicao(null, refeicaoDTO.getData(), 
+				refeicaoDTO.getQuantidade(), TipoRefeicao.toEnum(refeicaoDTO.getTipoRefeicao()));
+		refeicao.setAlimentos(alimento);
+		return refeicao;
 	}
 
 }
