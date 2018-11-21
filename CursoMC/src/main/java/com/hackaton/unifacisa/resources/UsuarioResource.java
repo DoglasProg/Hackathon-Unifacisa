@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.hackaton.unifacisa.Services.UsuarioService;
+import com.hackaton.unifacisa.domain.Refeicao;
 import com.hackaton.unifacisa.domain.Usuario;
 
 @RequestMapping(value="/usuarios")
@@ -32,9 +33,15 @@ public class UsuarioResource {
 	}
 	
 	@PreAuthorize("hasAnyRole('ADMIN')") 
-	@RequestMapping(method=RequestMethod.GET)
+	@RequestMapping(value="/list",method=RequestMethod.GET)
 	public ResponseEntity<List<Usuario>> findAll() {
 		List<Usuario> list = UsuarioService.findAll();
+		return ResponseEntity.ok().body(list);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity<Usuario> findUserLogin() {
+		Usuario list = UsuarioService.findUserLogin();
 		return ResponseEntity.ok().body(list);
 	}
 	

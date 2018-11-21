@@ -31,7 +31,6 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@JsonIgnore
 	@OneToMany(cascade=CascadeType.REMOVE)
 	@JoinColumn(name="refeicao_id")
 	private List<Refeicao> refeicoes = new ArrayList<>();

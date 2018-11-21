@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.hackaton.unifacisa.Services.exception.AuthorizationException;
 import com.hackaton.unifacisa.Services.exception.ObjectNotFoundException;
+import com.hackaton.unifacisa.domain.Refeicao;
 import com.hackaton.unifacisa.domain.Usuario;
 import com.hackaton.unifacisa.domain.enums.Perfil;
 import com.hackaton.unifacisa.repositories.UsuarioRepository;
@@ -55,4 +56,18 @@ public class UsuarioService {
 			throw new DataIntegrityViolationException("Não é possivel excluir");
 		}
 	}
+
+	public Usuario findUserLogin() {
+		UserSecurity user = UserService.authenticated();
+		return find(user.getId());
+		
+	}
+	
+	public void insertRefeicaoUser(Refeicao refeicao) {
+		UserSecurity userss = UserService.authenticated();
+		Usuario user = find(userss.getId());
+		user.setRefeicoes(refeicao);
+		update(user);
+	}
+	
 }
