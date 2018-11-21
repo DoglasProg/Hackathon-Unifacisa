@@ -31,5 +31,10 @@ public class UsuarioDTO implements Serializable{
 	private double peso;
 	
 	private int idRefeicao;
+	
+	private UsuarioDTO() {}
+	
+	
+	
 
 }

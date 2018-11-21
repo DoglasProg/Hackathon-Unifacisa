@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.hackaton.unifacisa.Services.AlimentoService;
 import com.hackaton.unifacisa.domain.Alimento;
-import com.hackaton.unifacisa.domain.Refeicao;
 
 @RequestMapping(value="/alimentos")
 @RestController
@@ -37,6 +37,7 @@ public class AlimentoResource {
 		return ResponseEntity.ok().body(list);
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')") 
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody Alimento obj){
 		obj = alimentoService.insert(obj);
@@ -44,13 +45,14 @@ public class AlimentoResource {
 				.buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
-	
+	@PreAuthorize("hasAnyRole('ADMIN')") 
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		alimentoService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')") 
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<Void> update(@Valid @RequestBody Alimento obj, @PathVariable Integer id){
 		obj.setId(id);

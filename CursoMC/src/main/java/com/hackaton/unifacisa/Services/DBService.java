@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.hackaton.unifacisa.domain.Alimento;
 import com.hackaton.unifacisa.domain.Refeicao;
 import com.hackaton.unifacisa.domain.Usuario;
+import com.hackaton.unifacisa.domain.enums.Perfil;
 import com.hackaton.unifacisa.domain.enums.TipoRefeicao;
 import com.hackaton.unifacisa.repositories.AlimentoRepository;
 import com.hackaton.unifacisa.repositories.RefeicaoRepository;
@@ -57,8 +58,12 @@ public class DBService {
 		Alimento ali7 = new Alimento(null, "ervas", 3, 8, 0, 5, 1, 11);
 		Alimento ali8 = new Alimento(null, "canabis", 2, 8, 0, 5, 1, 13);
 
-		Usuario user = new Usuario(null, "Abella", "987654321", "abella@gmail.com", pe.encode("123"), 40, 100, 90);
-		Usuario user1 = new Usuario(null, "Maria", "987654000", "Maria@gmail.com", pe.encode("123"), 25, 115, 50);
+		Usuario user1 = new Usuario(null, "Abella", "987654321", "abella@gmail.com", pe.encode("123"), 40, 100, 90);
+		Usuario user2 = new Usuario(null, "Maria", "987654000", "maria@gmail.com", pe.encode("123"), 25, 115, 50);
+		Usuario user3 = new Usuario(null, "Caralo", "987654111", "carol@gmail.com", pe.encode("123"), 25, 115, 50);
+		Usuario user4 = new Usuario(null, "Roberto", "987654888", "roberto@gmail.com", pe.encode("123"), 25, 115, 50);
+		Usuario user5 = new Usuario(null, "Flavia", "987654333", "flavia@gmail.com", pe.encode("123"), 25, 115, 50);
+		user5.addPerfis(Perfil.ADMIN);;
 
 		alimentoRepository.saveAll(Arrays.asList(ali1, ali2,ali3,ali4,ali5,ali6,ali7,ali8));
 		
@@ -68,10 +73,10 @@ public class DBService {
 
 		refeicaoRepository.saveAll(Arrays.asList(ref1, ref2));
 
-		user.getRefeicoes().add(ref2);
-		user1.getRefeicoes().add(ref1);
+		user1.getRefeicoes().add(ref2);
+		user2.getRefeicoes().add(ref1);
 
-		usuarioRepository.saveAll(Arrays.asList(user, user1));
+		usuarioRepository.saveAll(Arrays.asList(user1, user2,user3,user4,user5));
 	}
 
 }
